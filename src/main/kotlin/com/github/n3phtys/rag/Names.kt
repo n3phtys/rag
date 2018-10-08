@@ -7,7 +7,7 @@ val surNames = listOf<String>("Mannheim", "Müller", "Keep", "Travo", "Compton",
 
 fun getCombinedName(rand: Random) : String {
     // 1-3 first names, one surname
-    val numberOfFirstNames: Int = 1 + rand.nextInt(1) + rand.nextInt(1)
+    val numberOfFirstNames: Int = 1 + rand.nextInt(2) + rand.nextInt(2)
     val surname = surNames.get(rand.nextInt(surNames.size))
     val firstName = (0 until numberOfFirstNames).map {
         val idx = rand.nextInt(firstNames.size)
