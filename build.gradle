@@ -1,6 +1,7 @@
 plugins {
     id 'java'
     id 'org.jetbrains.kotlin.jvm' version '1.2.51'
+    id 'application'
 }
 
 group 'com.github.n3phtys'
@@ -12,10 +13,13 @@ repositories {
     mavenCentral()
 }
 
+mainClassName = "com.github.n3phtys.rag.MainKt"
+
 dependencies {
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
-    testCompile group: 'junit', name: 'junit', version: '4.12'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+    testImplementation group: 'junit', name: 'junit', version: '4.12'
     implementation 'com.google.code.gson:gson:2.8.5'
+    implementation 'com.github.ajalt:clikt:1.5.0'
 }
 
 
