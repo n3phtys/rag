@@ -3,30 +3,20 @@ package com.github.n3phtys.rag
 import com.github.ajalt.clikt.core.*
 import com.github.ajalt.clikt.parameters.options.*
 import com.github.ajalt.clikt.parameters.types.*
+import java.io.File
 
 
-class Hello : CliktCommand() {
-    val count: Int by option(help="Number of greetings").int().default(1)
-    val xanyarg : Int? by option(help="Some unused int argument").int()
-    val name: String by option(help="The person to greet").default("n3phtys")
+
+class RAGCommand : CliktCommand() {
+    val multiplyCount: Int by option("-c","--count", help="Number of multiplications").int().default(100)
+    val templateString: String? by option("-t", "--template",help="A string representation of the template in question")
+    val randomSeed: Int by option("-s", "--seed", help="Random Generator Seed").int().default(13)
+    val templateFile: File? by option("-i", "--input-file", help="A file with the given json template").file(exists = true, fileOkay = true, readable = true)
 
     override fun run() {
-        for (i in 1..count) {
-            echo("Hello $name!")
-        }
+        val tmpl: String = if (templateFile != null) { templateFile!!.readText(Charsets.UTF_8)} else { if (templateString != null) { templateString!! } else { DEFAULT_JSON_TEMPLATE }}
+        echo(RAG(template = tmpl, multiplier = multiplyCount, randomGenSeed =  randomSeed.toLong()).output)
     }
 }
 
-fun main(args: Array<String>) = Hello().main(args)
-
-
-
-
-
-
-
-
-
-fun helloWorld(): String {
-    return "Hello World!"
-}
+fun main(args: Array<String>) = RAGCommand().main(args)
