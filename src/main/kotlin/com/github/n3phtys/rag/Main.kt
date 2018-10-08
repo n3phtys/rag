@@ -14,7 +14,8 @@ class RAGCommand : CliktCommand() {
     val templateFile: File? by option("-i", "--input-file", help="A file with the given json template").file(exists = true, fileOkay = true, readable = true)
 
     override fun run() {
-        val tmpl: String = if (templateFile != null) { templateFile!!.readText(Charsets.UTF_8)} else { if (templateString != null) { templateString!! } else { DEFAULT_JSON_TEMPLATE }}
+        //TODO: take alternatively from stdin
+        val tmpl: String = if (templateFile != null) { templateFile!!.readText(Charsets.UTF_8)} else { if (templateString != null) { templateString!! } else { throw MissingParameter("Either --template or --input-file has to be provided") }}
         echo(RAG(template = tmpl, multiplier = multiplyCount, randomGenSeed =  randomSeed).output)
     }
 }

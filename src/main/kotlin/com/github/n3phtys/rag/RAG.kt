@@ -64,6 +64,7 @@ class RAG(val template: String = DEFAULT_JSON_TEMPLATE, val multiplier: Int = DE
             } else {
                 //iterate through given replacements
                 val sub = str.substringAfter(PARAMETER_DELIMITER)
+                // TODO: placeholders should be extract in place and hard length limited
                 if ("name".equals(sub)) {
                     return JsonPrimitive(getCombinedName(rand))
                 } else if ( sub.startsWith("id_int")) {
